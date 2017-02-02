@@ -1,6 +1,7 @@
 # Make sure the service is started, and restart if necessary
 - name: Start elasticsearch service
   service: name={{instance_init_script | basename}} state=started enabled=yes
+           daemon_reload="{{ True if ansible_service_mgr|default() == 'systemd' else omit }}"
   when: es_start_service
   register: elasticsearch_started
 
